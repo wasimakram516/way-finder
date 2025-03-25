@@ -50,7 +50,7 @@ export default function Home() {
           priority
           layout="responsive"
           style={{ cursor: 'pointer' }}
-          onClick={() => { router.push("/way-finder")}}
+          onClick={() => { router.push("/stores")}}
         />
       </Box>
 
@@ -62,7 +62,7 @@ export default function Home() {
             width={180}
             height={100}
             style={{ cursor: 'pointer' }}
-            onClick={() => { router.push("/way-finder")}}
+            onClick={() => { router.push("/stores")}}
           />
         </Box>
       </Box>
