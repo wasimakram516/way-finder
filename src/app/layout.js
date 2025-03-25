@@ -2,7 +2,7 @@ import "./styles/globals.css";
 import ThemeRegistry from "@/app/styles/themeRegistry"; // assuming you're using a custom MUI registry wrapper
 
 export const metadata = {
-  title: "Mall Wayfinder",
+  title: "WayFinder",
   description:
     "An interactive wayfinding kiosk app to help visitors locate stores across floors in Mall of Muscat.",
   keywords: "Mall of Muscat, wayfinding, map, shopping, navigation, digital screen",
@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="theme-color" content="#c8b178" />
         <link rel="icon" href="/mallLogo.png" type="image/png" />
-        <title>Mall Wayfinder</title>
+        <title>WayFinder</title>
       </head>
       <body>
         <ThemeRegistry>{children}</ThemeRegistry>
