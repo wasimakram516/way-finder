@@ -19,6 +19,7 @@ import {
   Button,
   IconButton,
   TextField,
+  Chip,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CloseIcon from "@mui/icons-material/Close";
@@ -204,7 +205,7 @@ export default function WayFinder() {
         fullWidth
         PaperProps={{
           sx: {
-            borderRadius: 4,
+            borderRadius: 2,
             p: 2,
             backgroundColor: "#ffffff",
             boxShadow: 10,
@@ -213,6 +214,22 @@ export default function WayFinder() {
       >
         {selectedStore && (
           <>
+            {/* Floor Chip */}
+            <Chip
+              label={`Floor ${selectedStore.floor}`}
+              color="primary"
+              size="large"
+              sx={{
+                position: "absolute",
+                top: "5%",
+                left: "5%",
+                color: "#fff",
+                fontWeight: "bold",
+                fontSize: "1rem",
+                padding: "1.25rem 1.75rem",
+              }}
+            />
+
             <DialogTitle
               sx={{
                 textAlign: "center",
@@ -225,12 +242,7 @@ export default function WayFinder() {
 
             <DialogContent>
               {selectedStore.logo && (
-                <Box
-                  mb={3}
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                >
+                <Box display="flex" justifyContent="center" alignItems="center">
                   <Box
                     sx={{
                       height: "auto",
@@ -255,14 +267,6 @@ export default function WayFinder() {
                 mb={1}
               >
                 {selectedStore.description || "No description provided."}
-              </Typography>
-
-              <Typography
-                variant="subtitle2"
-                textAlign="center"
-                color="text.disabled"
-              >
-                Floor: {selectedStore.floor}
               </Typography>
             </DialogContent>
 
