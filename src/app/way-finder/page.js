@@ -38,6 +38,7 @@ export default function WayFinder() {
 
   const handleStoreClick = (store) => {
     setSelectedStore(store);
+    setDrawerOpen(false);
   };
 
   const handlePlayVideo = () => {
