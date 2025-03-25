@@ -292,7 +292,7 @@ export default function WayFinder() {
                   <Image
                     src="/takeMe.png"
                     alt="Person Icon"
-                    width={24}
+                    width={18}
                     height={24}
                   />
                 }
