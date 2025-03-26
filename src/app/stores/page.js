@@ -113,11 +113,12 @@ export default function WayFinder() {
           <Box
             sx={{
               position: "absolute",
-              top: "10%",
-              left: "5%",
-              width: 320,
+              top: { xs: "5%", sm: "8%", md: "10%" },
+              left: { xs: "5%", sm: "5%", md: "5%" },
+              width: { xs: "90vw", sm: 300, md: 320 },
+              maxHeight: "80vh",
               bgcolor: "primary.main",
-              borderRadius: 1,
+              borderRadius: 2,
               boxShadow: 6,
               zIndex: 1000,
               p: 2,
