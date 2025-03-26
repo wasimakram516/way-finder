@@ -158,15 +158,45 @@ export default function WayFinder() {
 
             {/* Category List */}
             <Box>
-              {searchTerm.trim() === "" ? (
-                categories.map((category) => (
-                  <Accordion key={category.id} sx={{ bgcolor: "#c8b783" }}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      <Typography fontWeight="bold">{category.name}</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <List dense>
-                        {category.stores.map((store, index) => (
+              {searchTerm.trim() === ""
+                ? categories.map((category) => (
+                    <Accordion key={category.id} sx={{ bgcolor: "#c8b783" }}>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography fontWeight="bold">
+                          {category.name}
+                        </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <List dense>
+                          {category.stores.map((store, index) => (
+                            <Box key={store.id}>
+                              <ListItemButton
+                                sx={{ p: 2 }}
+                                onClick={() => handleStoreClick(store)}
+                              >
+                                {store.name}
+                              </ListItemButton>
+                              {index < category.stores.length - 1 && (
+                                <Divider />
+                              )}
+                            </Box>
+                          ))}
+                        </List>
+                      </AccordionDetails>
+                    </Accordion>
+                  ))
+                : (() => {
+                    const filteredStores = categories
+                      .flatMap((category) => category.stores)
+                      .filter((store) =>
+                        store.name
+                          .toLowerCase()
+                          .includes(searchTerm.toLowerCase())
+                      );
+
+                    return (
+                      <List dense sx={{ bgcolor: "#c8b783", borderRadius: 1 }}>
+                        {filteredStores.map((store, index) => (
                           <Box key={store.id}>
                             <ListItemButton
                               sx={{ p: 2 }}
@@ -174,32 +204,12 @@ export default function WayFinder() {
                             >
                               {store.name}
                             </ListItemButton>
-                            {index < category.stores.length - 1 && <Divider />}
+                            {index < filteredStores.length - 1 && <Divider />}
                           </Box>
                         ))}
                       </List>
-                    </AccordionDetails>
-                  </Accordion>
-                ))
-              ) : (
-                <List dense sx={{ bgcolor: "white", borderRadius: 1 }}>
-                  {categories
-                    .flatMap((category) => category.stores)
-                    .filter((store) =>
-                      store.name
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase())
-                    )
-                    .map((store) => (
-                      <ListItemButton
-                        key={store.id}
-                        onClick={() => handleStoreClick(store)}
-                      >
-                        {store.name}
-                      </ListItemButton>
-                    ))}
-                </List>
-              )}
+                    );
+                  })()}
             </Box>
           </Box>
         )}
