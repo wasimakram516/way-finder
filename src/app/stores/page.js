@@ -116,7 +116,7 @@ export default function WayFinder() {
               top: { xs: "5%", sm: "8%", md: "10%" },
               left: { xs: "5%", sm: "5%", md: "5%" },
               width: { xs: "90vw", sm: 300, md: 320 },
-              maxHeight: "80vh",
+              maxHeight: "90vh",
               bgcolor: "primary.main",
               borderRadius: 2,
               boxShadow: 6,
@@ -220,7 +220,7 @@ export default function WayFinder() {
             position: "absolute",
             top: 10,
             right: 10,
-            zIndex: 10,
+            zIndex: 999,
           }}
         >
           <Image
