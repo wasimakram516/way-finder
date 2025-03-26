@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   Box,
-  Drawer,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -20,6 +19,7 @@ import {
   IconButton,
   TextField,
   Chip,
+  Divider,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CloseIcon from "@mui/icons-material/Close";
@@ -97,7 +97,7 @@ export default function WayFinder() {
               top: 16,
               left: 16,
               zIndex: 999,
-              backgroundColor: "white",
+              backgroundColor: "#c8b783",
               boxShadow: 3,
               "&:hover": {
                 backgroundColor: "primary.main",
@@ -109,8 +109,22 @@ export default function WayFinder() {
         )}
 
         {/* Drawer */}
-        <Drawer anchor="left" open={drawerOpen} variant="persistent">
-          <Box sx={{ width: 300, p: 2 }}>
+        {drawerOpen && (
+          <Box
+            sx={{
+              position: "absolute",
+              top: "10%",
+              left: "5%",
+              width: 320,
+              bgcolor: "primary.main",
+              borderRadius: 1,
+              boxShadow: 6,
+              zIndex: 1000,
+              p: 2,
+              overflowY: "auto",
+            }}
+          >
+            {/* Header with Close Button */}
             <Box
               sx={{
                 display: "flex",
@@ -119,8 +133,13 @@ export default function WayFinder() {
                 mb: 1,
               }}
             >
-              <Typography variant="h5">Stores</Typography>
-              <IconButton onClick={() => setDrawerOpen(false)}>
+              <Typography variant="h5" color="black">
+                Stores
+              </Typography>
+              <IconButton
+                onClick={() => setDrawerOpen(false)}
+                sx={{ color: "black" }}
+              >
                 <CloseIcon />
               </IconButton>
             </Box>
@@ -133,50 +152,56 @@ export default function WayFinder() {
               size="small"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              sx={{ my: 2 }}
+              sx={{ my: 2, bgcolor: "white", borderRadius: 1 }}
             />
 
-            {searchTerm.trim() === "" ? (
-              // Show all categories with accordions
-              categories.map((category) => (
-                <Accordion key={category.id}>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography fontWeight="bold">{category.name}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <List dense>
-                      {category.stores.map((store) => (
-                        <ListItemButton
-                          key={store.id}
-                          onClick={() => handleStoreClick(store)}
-                        >
-                          {store.name}
-                        </ListItemButton>
-                      ))}
-                    </List>
-                  </AccordionDetails>
-                </Accordion>
-              ))
-            ) : (
-              // Show filtered store list
-              <List dense>
-                {categories
-                  .flatMap((category) => category.stores)
-                  .filter((store) =>
-                    store.name.toLowerCase().includes(searchTerm.toLowerCase())
-                  )
-                  .map((store) => (
-                    <ListItemButton
-                      key={store.id}
-                      onClick={() => handleStoreClick(store)}
-                    >
-                      {store.name}
-                    </ListItemButton>
-                  ))}
-              </List>
-            )}
+            {/* Category List */}
+            <Box>
+              {searchTerm.trim() === "" ? (
+                categories.map((category) => (
+                  <Accordion key={category.id} sx={{ bgcolor: "#c8b783" }}>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      <Typography fontWeight="bold">{category.name}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <List dense>
+                        {category.stores.map((store, index) => (
+                          <Box key={store.id}>
+                            <ListItemButton
+                              sx={{ p: 2 }}
+                              onClick={() => handleStoreClick(store)}
+                            >
+                              {store.name}
+                            </ListItemButton>
+                            {index < category.stores.length - 1 && <Divider />}
+                          </Box>
+                        ))}
+                      </List>
+                    </AccordionDetails>
+                  </Accordion>
+                ))
+              ) : (
+                <List dense sx={{ bgcolor: "white", borderRadius: 1 }}>
+                  {categories
+                    .flatMap((category) => category.stores)
+                    .filter((store) =>
+                      store.name
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase())
+                    )
+                    .map((store) => (
+                      <ListItemButton
+                        key={store.id}
+                        onClick={() => handleStoreClick(store)}
+                      >
+                        {store.name}
+                      </ListItemButton>
+                    ))}
+                </List>
+              )}
+            </Box>
           </Box>
-        </Drawer>
+        )}
 
         {/* Mall Logo */}
         <Box
@@ -206,7 +231,7 @@ export default function WayFinder() {
         fullWidth
         PaperProps={{
           sx: {
-            borderRadius: 2,
+            borderRadius: 1,
             p: 2,
             backgroundColor: "#ffffff",
             boxShadow: 10,
@@ -224,7 +249,7 @@ export default function WayFinder() {
                 position: "absolute",
                 top: "5%",
                 left: "5%",
-                color: "#fff",
+                color: "black",
                 fontWeight: "bold",
                 fontSize: "1rem",
                 padding: "1.25rem 1.75rem",
@@ -277,8 +302,8 @@ export default function WayFinder() {
                 size="large"
                 onClick={handlePlayVideo}
                 sx={{
-                  backgroundColor: "#c8b178",
-                  color: "#fff",
+                  backgroundColor: "primary.main",
+                  color: "black",
                   px: 4,
                   py: 1.5,
                   fontWeight: "bold",
@@ -332,13 +357,20 @@ export default function WayFinder() {
                 }}
               >
                 <video
+                  key={videoSrc}
                   src={videoSrc}
                   autoPlay
+                  muted
+                  playsInline
+                  preload="auto"
                   controls={false}
                   style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "contain", // preserve video dimensions
+                    objectFit: "contain",
+                    pointerEvents: "none",
+                    appearance: "none",
+                    background: "black",
                   }}
                   onEnded={handleCloseVideo}
                 />
@@ -347,6 +379,24 @@ export default function WayFinder() {
           </TransformWrapper>
         </Box>
       )}
+
+      {/* Preload All Videos (hidden) */}
+      {categories
+        .flatMap((c) => c.stores)
+        .map(
+          (store) =>
+            store.video &&
+            store.video.trim() !== "" && (
+              <video
+                key={store.id}
+                src={store.video}
+                preload="auto"
+                muted
+                playsInline
+                style={{ display: "none" }}
+              />
+            )
+        )}
     </>
   );
 }
