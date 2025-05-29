@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Box from "@mui/material/Box";
+import {Box, IconButton} from "@mui/material";
 import { useRouter } from "next/navigation";
 
+import LoginIcon from "@mui/icons-material/Login";
 export default function Home() {
   const router = useRouter();
 
@@ -24,6 +25,20 @@ export default function Home() {
         px: 2,
       }}
     >
+      {/* Login Button */}
+      <IconButton
+        sx={{
+          position: "absolute",
+          top: 20,
+          right: 20,
+          color: "black",
+          zIndex: 2,
+        }}
+        onClick={() => router.push("/auth/login")}
+      >
+        <LoginIcon />
+      </IconButton>
+
       {/* Foreground content */}
       <Box
         sx={{
