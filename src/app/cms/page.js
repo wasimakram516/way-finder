@@ -74,7 +74,7 @@ const stores = [
   },
   {
     name: "V Perfumes",
-    logo: "/vperfumesLogo.png",
+    logo: "/vPerfumesLogo.png",
     desc: "V Perfumes is a leading fragrance retailer in the region, offering an exotic range of scents.",
     visits: 204000,
   },
@@ -100,7 +100,7 @@ const stores = [
     name: "Arabian Oud",
     logo: "/arabianOudLogo.png",
     desc: "Arabian Oud is a globally renowned fragrance house specializing in oriental scents.",
-    visits: 243580,
+    visits: 143580,
   },
 ];
 
